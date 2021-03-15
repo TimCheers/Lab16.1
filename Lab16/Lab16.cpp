@@ -1,4 +1,5 @@
-﻿#include <iostream>
+//не работает эта дичь
+#include <iostream>
 #include <vector>
 using namespace std;
 int main()
