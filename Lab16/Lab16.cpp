@@ -1,36 +1,8 @@
 ﻿#include <iostream>
 #include <vector>
 using namespace std;
-int main()
+void mat1(vector<int>&STR,int n)
 {
-    system("chcp 1251>nul");
-    srand(time(NULL));
-    vector<int> STR;
-    int n = -1;
-    cout << "Введите количество элементов: ";
-    while (n < 1)
-    {
-        cin >> n;
-        if (n < 1)
-        {
-            cout << "Введено некоректное значение. Введите значение заново";
-        }
-    }
-    cout << "Введите элементы:\n\n";
-    for (int i = 0; i < n; i++)
-    {
-        int tmp;
-        cout << "Введите " << i + 1 << " эелемент:";
-        cin >> tmp;
-        STR.push_back(tmp);
-    }
-    for (int i = 0; i < n; i++)
-    {
-        cout << STR[i] << "\t";
-    }
-
-
-
     int max = 0, Sser = 1, Kolser = 1;
     while (Kolser != 0)
     {
@@ -154,64 +126,45 @@ int main()
                     cout << a[i][j] << '\t';
                 cout << endl;
             }
-            for (int i = 1; i < Kolser; i += 2)
+            int P = 0;
+            int P1 = Kolser;
+            if (Kolser % 2 != 0)
             {
-                for (int j = 0; j < max; j++)
+                P1 = Kolser - 1;
+            }
+            for (int i = 0; i < P1; i++)
+            {
+                for (int o = 0; o < 2; o++)
                 {
-                    if (a[i][j] != 0)
+                    for (int j = 0; j < max; j++)
                     {
-                        STR.push_back(a[i][j]);
-                    }
-                    else
-                    {
-                        j = max;
-                    }
-                }
-                int t = STR.size();
-                int l = 0;
-                while (l != max)
-                {
-                    if (a[i - 1][l] != 0)
-                    {
-                        if (a[i - 1][l] != 0 && a[i - 1][l] >= STR[t - 1])
+                        if (a[i][j] != 0)
                         {
-                            if (t == STR.size())
-                            {
-                                STR.push_back(a[i - 1][l]);
-                                t++;
-                            }
-                            else
-                            {
-                                auto iter = STR.cbegin();
-                                STR.emplace(iter + t, a[i - 1][l]);
-                                t += 2;
-                            }
-                            l++;
+                            STR.push_back(a[i][j]);
                         }
                         else
                         {
-                            if (t == 1 && a[i - 1][l] <= STR[t - 1])
-                            {
-                                STR.emplace(STR.begin(), a[i - 1][l]);
-                                t += STR.size();
-                                l++;
-                            }
-                            if (t != 1)
-                            {
-                                t--;
-                            }
+                            j = max;
                         }
                     }
-                    else
+                    i++;
+                }
+                int tmp;
+                for (int i = P; i < STR.size() - 1; i++)
+                {
+                    for (int j = P; j < STR.size() - 1; j++)
                     {
-                        l = max;
+
+                        if (STR[j] > STR[j + 1])
+                        {
+                            tmp = STR[j + 1];
+                            STR[j + 1] = STR[j];
+                            STR[j] = tmp;
+                        }
                     }
                 }
-                cout << "\n------------------------------------------------------\n" << endl;
-                for (int i = 0; i < STR.size(); i++)
-                {
-                    cout << STR[i] << "\t";
-                }
+                P = STR.size();
+                i--;
             }
             cout << "\n------------------------------------------------------\n" << endl;
             if (Kolser % 2 != 0)
@@ -235,6 +188,38 @@ int main()
         cout << STR[i] << "\t";
     }
     cout << "\n------------------------------------------------------\n" << endl;
+}
+int main()
+{
+    system("chcp 1251>nul");
+    srand(time(NULL));
+    vector<int> STR;
+    int n = -1;
+    cout << "Введите количество элементов: ";
+    while (n < 1)
+    {
+        cin >> n;
+        if (n < 1)
+        {
+            cout << "Введено некоректное значение. Введите значение заново";
+        }
+    }
+    cout << "Введите элементы:\n\n";
+    for (int i = 0; i < n; i++)
+    {
+        int tmp;
+        cout << "Введите " << i + 1 << " эелемент:";
+        cin >> tmp;
+        STR.push_back(tmp);
+    }
+    for (int i = 0; i < n; i++)
+    {
+        cout << STR[i] << "\t";
+    }
+    /*mat1(STR, n);*/
+
+
+    
     return 0;
 }
 
