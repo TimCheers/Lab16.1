@@ -1,7 +1,9 @@
 ﻿#include <iostream>
 #include <vector>
+#include <stdio.h>
+#include <stdlib.h>
 using namespace std;
-void mat1(vector<int>&STR,int n)
+void met1(vector<int>&STR,int n)
 {
     int max = 0, Sser = 1, Kolser = 1;
     while (Kolser != 0)
@@ -189,6 +191,31 @@ void mat1(vector<int>&STR,int n)
     }
     cout << "\n------------------------------------------------------\n" << endl;
 }
+void met2(vector<int>& STR, int left, int right)
+{
+    if (left == right) return;
+    int mid = (left + right) / 2;
+    met2(STR, left, mid);
+    met2(STR, mid + 1, right);
+    int i = left;
+    int j = mid + 1;
+    int* a = new int[STR.size()];
+    for (int step = 0; step < right - left + 1; step++)
+    {
+        if ((j > right) || ((i <= mid) && (STR[i] < STR[j])))
+        {
+            a[step] = STR[i];
+            i++;
+        }
+        else
+        {
+            a[step] = STR[j];
+            j++;
+        }
+    }
+    for (int step = 0; step < right - left + 1; step++)
+        STR[left + step] = a[step];
+}
 int main()
 {
     system("chcp 1251>nul");
@@ -216,10 +243,14 @@ int main()
     {
         cout << STR[i] << "\t";
     }
-    /*mat1(STR, n);*/
-
-
-    
+    met1(STR, n);
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   /* cout << "\n\n----------------------------------------------------------------\n\n";
+    met2(STR, 0, n - 1);*/
+    for (int i = 0; i < n; i++)
+    {
+        cout << STR[i] << "\t";
+    }
     return 0;
 }
 
